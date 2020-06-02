@@ -11,3 +11,28 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.contentPanel .box{
+  width:1000px;
+  height:1000px;
+  margin:50px;
+  display:table;
+}
+
+.contentPanel .box .box-row{
+  display:table-row;
+}
+
+.contentPanel .box .box-cell{
+  display:table-cell;
+  width: 50%;
+  padding:10px;
+}
+
+.contentPanel .box .box-cell.boxA{
+  background:#FFFFFF
+}
+.contentPanel .box .box-cell.boxB{
+  background:#EEEEEE
+}
+
