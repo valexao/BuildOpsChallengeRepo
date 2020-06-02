@@ -1,3 +1,4 @@
+import ReactDOM from 'react-dom';
 import React from 'react';
 import data from './data.json';
 import './App.css';
@@ -6,19 +7,13 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {isDefault: true, buttonString: "-", data: data};
-
     //binding to make the callback work
     this.clicked = this.clicked.bind(this);
   }
 
-  //Toggle between 
+  //Toggle between the default and non-default state
   clicked() {
     this.setState((state) => ({ isDefault: !state.isDefault}));
-    // if (this.state.buttonString == "-") {
-    //   this.state.buttonString = this.setState((state) => ({buttonString: "+"}));
-    // } else {
-    //   this.state.buttonString = this.setState((state) => ({buttonString: "-"}));
-    // }
   };
 
   //Extract information from headerData and render it horizontally
@@ -26,33 +21,43 @@ class App extends React.Component {
     var headerData = this.state.data.headerData.slice();
     
     var objects = headerData.map(function(item, index) {
-      return <div style={{display:"inline", padding:"50px"}} key={index}>{item}</div>
+      return <div style={{display:"inline",paddingRight: "250px"}} key={index}>{item}</div>
     });
     return objects;
   };
 
-  changeColor = () => {
-    var contentA = this.state.data.contentA;
-    var contentB = this.state.data.contentB;
-    //CONTENT A Default #FFFFFF (VISIBLE)
+  renderHeaderSquare() {
+    var headerStyle = {
+      paddingTop: "30px",
+      margin:"10px",
+      width: "1000px",
+      filter: "drop-shadow(0px 0px 2px #660)"
+    };
 
-    //CONTENT B Default #EEEEEE (INVISIBLE)
-  };
+    return <div style={headerStyle}></div>
+
+  }
 
   //Load the content for panel A
   loadContentA() {
     var contentA = this.state.data.contentA;
 
+    //Default is visible, otherwise, hide content
     if(this.state.isDefault) {
-      return <div style={{background:"#FFFFFF", float:"left"}}>{contentA}</div>
+      return <div style={{height: "300px", background:"#FFFFFF", float:"left", color: "black", filter: "drop-shadow(0px 0px 2px #660)"}}>{contentA}</div>
+    } else {
+      return <div style={{height: "300px", background:"#EEEEEE", float:"left", color: "#EEEEEE"}}>{contentA}</div>
     }
   }
 
   //Load the content for panel B
   loadContentB() {
     var contentB = this.state.data.contentB;
-    if(!this.state.isDefault) {
-      return <div style={{background:"#EEEEEE", float:"right"}}>{contentB}</div>
+    //Default is hidden, otherwise, show content
+    if(this.state.isDefault) {
+      return <div style={{height: "300px", background:"#EEEEEE", float:"right", color: "#EEEEEE"}}>{contentB}</div>
+    } else {
+      return <div style={{height: "300px", background:"#FFFFFF", float:"right", color: "black", filter: "drop-shadow(0px 0px 2px #660)"}}>{contentB}</div>
     }
   }
 
@@ -60,14 +65,11 @@ class App extends React.Component {
     var contentStyle = {
       paddingTop: "30px",
       margin:"10px",
-      display:"table",
-      height: "1000",
-      width: "500",
-      filter: "drop-shadow(0px 0px 2px #600)"
+      width: "1000px",
     };
 
     return(
-      <div style={{color: 'black', margin:"30px", width:"100%"}}>
+      <div style={{color: 'black', margin:"30px", width: "70%", textAlign:"center"}}>
         {this.renderHeaderData()}
         <button type='button' onClick={this.clicked}>{this.state.isDefault ? '-' : '+'}</button>
         <div style={contentStyle}>
@@ -80,8 +82,3 @@ class App extends React.Component {
 }
 
 export default App;
-
-//ReactDOM.render(<App />, document.getElementById('app'));
-//           {this.loadContentA()}
-          
-//{this.loadContentB()}
